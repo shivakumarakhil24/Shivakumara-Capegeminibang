@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- bean definitions here -->
+	<bean id="mobile" class="com.capgemini.springs.beans.Mobile" autowire="byName">
+		<property name="brandName" value="Nokia" />
+		<property name="modelName" value="Asha" />
+		<property name="price" value="4999" />
+		<!-- <property name="mDisplay" ref=""></property> -->
+
+       <!-- Above is for explicitly connect the two class object(EmployeeBean and 
+			DepartmentBean -->
+	</bean>
+
+	<bean id="mDisplay"
+		class="com.capgemini.springs.beans.MobileDisplay">
+		<property name="diplaySize" value="6.5" />
+		<property name="resolution" value="Full Hd" />
+	</bean>
+</beans> 

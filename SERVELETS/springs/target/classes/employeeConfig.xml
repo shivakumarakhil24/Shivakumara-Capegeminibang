@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- bean definitions here -->
+	<bean id="employee"
+		class="com.capgemini.springs.beans.EmployeeBean" autowire="byType">
+		<property name="empId" value="101" />
+		<property name="empName" value="Poojitha" />
+		
+		<!-- <property name="deptBean" ref="department" /> -->
+		<!-- It is for explicitly connect the two class object(EmployeeBean and DepartmentBean -->
+	</bean>
+
+	<bean id="deptBean"
+		class="com.capgemini.springs.beans.DepartmentBean" autowire-candidate="false"> 
+		<property name="deptId" value="901" />
+		<property name="deptName" value="Dev" />
+   </bean>
+   
+   <bean id="test"
+		class="com.capgemini.springs.beans.DepartmentBean" >
+		<property name="deptId" value="903" />
+		<property name="deptName" value="Tester" />
+   </bean>
+   
+   <bean id="hr"
+		class="com.capgemini.springs.beans.DepartmentBean" primary="true">
+		<property name="deptId" value="905" />
+		<property name="deptName" value="HR" />
+   </bean>
+   
+   <!-- byType means it is going to check fully qulified class name mentioned in xml file and the data member created in respective bean  class
+    (in EmployeeBean[private "DepartmentBean" deptBean]) -->
+    <!--byName means it is going to check the datamember name ([private DepartmentBean "deptBean"]) and id name mentioned in the this file(xml file) -->
+   
+   <!--autowire-candidate="false" to unselect the departments  -->
+   <!-- primry="true" for select the perticular department -->
+
+</beans>

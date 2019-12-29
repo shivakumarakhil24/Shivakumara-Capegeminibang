@@ -1,0 +1,17 @@
+package com.capgemini.springrest.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class EmployeeRestController {
+	private Emp
+	
+	
+	@GetMapping("/getEmployee")
+	public void getAllEmployee(int empId) {
+		
+	}
+
+}//End of controller

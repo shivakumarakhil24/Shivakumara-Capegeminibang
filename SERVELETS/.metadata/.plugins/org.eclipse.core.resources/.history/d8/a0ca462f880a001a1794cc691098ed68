@@ -1,0 +1,31 @@
+package com.capgemini.springmvc.service;
+
+import com.capgemini.springmvc.beans.EmployeeInfoBeans;
+import com.capgemini.springmvc.dao.EmployeeDAO;
+
+public class EmployeeServiceImpl implements EmployeeService {
+	
+	private EmployeeDAO dao;
+
+	@Override
+	public EmployeeInfoBeans getEmployee(int empId) {
+		return dao.getEmployee(empId);
+	}
+
+	@Override
+	public EmployeeInfoBeans authenticate(int empId, String pwd) {
+		return dao.authenticate(empId, pwd);
+	}
+
+	@Override
+	public boolean addEmployee(EmployeeInfoBeans employeeInfoBeans) {
+		
+		return dao.addEmployee(employeeInfoBeans);
+	}
+
+	@Override
+	public boolean updateEmployee(EmployeeInfoBeans employeeInfoBeans) {
+		return dao.updateEmployee(employeeInfoBeans);
+	}
+
+}

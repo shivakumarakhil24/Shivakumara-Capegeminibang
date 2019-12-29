@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- bean definitions here -->
+
+	<!-- <bean id="messageBean"
+		class="com.capgemini.springs.beans.MessageBean">
+		<property name="message" value="HELLO Folks welcome to springs Session"></property>
+	</bean> -->
+	
+	<bean class="com.capgemini.springs.postprocessor.MyBeanPostProcessor"/>
+	<bean class="com.capgemini.springs.postprocessor.MyBeanFactoryPostProcessor"/>
+	
+	<bean id="messageBean2" class="com.capgemini.springs.beans.MessageBean2"
+	 init-method="init" destroy-method="destroy" scope="prototype"> <!--Basically spring is a singleton class and to make it normal class we use [scope="prototype"]   -->
+	<property name="message" value="Happy Children's Day.."/>
+	
+	</bean>
+	
+	<!-- <bean id="employee" class="com.capgemini.springs.beans.EmployeeBean">
+	<property name="empId" value="101"></property>
+	<property name="empName" value="William Son"></property>
+	</bean>
+	
+	<bean id="employee2" class="com.capgemini.springs.beans.EmployeeBean">
+	<property name="empId" value="123"></property>
+	<property name="empName" value="John Born"></property> 
+	
+	</bean> -->
+ 
+</beans>

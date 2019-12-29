@@ -1,0 +1,130 @@
+package com.capgemini.springrest.controller;
+
+import java.util.List;
+
+import javax.print.attribute.standard.Media;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.capgemini.springrest.beans.EmployeeInfoBeans;
+import com.capgemini.springrest.beans.EmployeeResponse;
+import com.capgemini.springrest.service.EmployeeService;
+
+//If we use @RestController instead of @Controller no need to use of @ResponseBody 
+//@Controller
+
+@RestController
+@CrossOrigin(origins ="*", allowedHeaders ="*") //it is used to connect the angular with the spring
+public class EmployeeRestController {
+	@Autowired
+	private EmployeeService service;
+
+	@GetMapping(path="/getEmployee" ,produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	// @ResponseBody
+	//@GetMapping("/getEmployee")
+	public EmployeeResponse getEmployee(int empId) {
+		EmployeeInfoBeans employeeInfoBeans=service.getEmployee(empId);
+		EmployeeResponse response= new EmployeeResponse();
+		if(employeeInfoBeans !=null) {
+			response.setStatusCode(200);
+			response.setMessage("Getting");
+			response.setDescription("Succesfully");
+			response.setEmployeeInfoBeans(employeeInfoBeans);
+		} else {
+			response.setStatusCode(400);
+			response.setMessage("Getting");
+			response.setDescription("failure");
+			response.setEmployeeInfoBeans(employeeInfoBeans);
+
+		}
+		return response;
+
+	}// End Of GetEmp
+
+	@PutMapping(path = "/addEmployee", consumes = { MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_XML_VALUE }, produces = MediaType.APPLICATION_JSON_VALUE)
+	// @ResponseBody
+	public EmployeeResponse addEmployee(@RequestBody EmployeeInfoBeans employeeInfoBeans) {
+		boolean isAdded = service.addEmployee(employeeInfoBeans);
+		EmployeeResponse response = new EmployeeResponse();
+		if (isAdded) {
+			response.setStatusCode(200);
+			response.setMessage("Success");
+			response.setDescription("Data added succesfully");
+		} else {
+			response.setStatusCode(404);
+			response.setMessage("Failure");
+			response.setDescription("Data not added");
+		}
+		return response;
+	}// End of addEmployee
+
+	@DeleteMapping(path = "/deleteEmployee",produces = MediaType.APPLICATION_JSON_VALUE)
+	public EmployeeResponse deleteEmployee(int empId) {
+		boolean isDeleted = service.deleteEmployee(empId);
+
+		EmployeeResponse response = new EmployeeResponse();
+		if (isDeleted) {
+			response.setStatusCode(200);
+			response.setMessage("Success");
+			response.setDescription("Data Deleted succesfully");
+		} else {
+			response.setStatusCode(404);
+			response.setMessage("Failure");
+			response.setDescription("Data not  Deleted");
+		}
+		return response;
+	}// End Of DeleEmployee
+
+	@PostMapping(path = "/updateEmployee", consumes = { MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_JSON_VALUE }, produces = MediaType.APPLICATION_JSON_VALUE)
+	public EmployeeResponse updateEmployee(@RequestBody EmployeeInfoBeans employeeInfoBeans) {
+		
+		boolean isUpdated = service.updateEmployee(employeeInfoBeans);
+		EmployeeResponse response = new EmployeeResponse();
+
+		if (isUpdated) {
+			response.setStatusCode(200);
+			response.setMessage("Success");
+			response.setDescription("Data Updated succesfully");
+		} else {
+			response.setStatusCode(404);
+			response.setMessage("Failure");
+			response.setDescription("Data not  Updated");
+		}
+		return response;
+
+	}// End of UpdateEmp
+	
+
+	@GetMapping(path = "/getAllEmployee", consumes = { MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_JSON_VALUE }, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<EmployeeInfoBeans> getAllEmployee() {
+		List<EmployeeInfoBeans> empList=service.getAllEmployees();
+		EmployeeResponse response=new EmployeeResponse();
+		if(empList !=null) {
+			response.setStatusCode(200);
+			response.setMessage("Getting");
+			response.setDescription("Succesfully");
+		} else {
+			response.setStatusCode(400);
+			response.setMessage("Getting");
+			response.setDescription("failure");
+
+		}
+		return empList;
+
+
+	}
+
+}// End of controller
