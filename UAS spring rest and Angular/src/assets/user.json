@@ -1,0 +1,38 @@
+[
+    {
+        "id": 101,
+        "name": "Shahid Afrid",
+        "email": "shahidafrid366@gmail.com",
+        "phone": 7416512910
+    },
+    {
+        "id": 102,
+        "name": "Amulya",
+        "email": "amulya@gmail.com",
+        "phone": 7896541230
+    },
+    {
+        "id": 103,
+        "name": "Koushik",
+        "email": "Koushik@gmail.com",
+        "phone": 9123456780
+    },
+    {
+        "id": 104,
+        "name": "Kajal",
+        "email": "kajal@gmail.com",
+        "phone": 7052383056
+    },
+    {
+        "id": 105,
+        "name": "teju",
+        "email": "teju@gmail.com",
+        "phone": 9761430566
+    },
+    {
+        "id": 106,
+        "name": "bhomika",
+        "email": "bhomika@gmail.com",
+        "phone": 8605452125
+    }
+]

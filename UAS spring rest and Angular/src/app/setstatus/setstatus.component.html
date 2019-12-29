@@ -1,0 +1,16 @@
+<div class="img" style="height: 690px;">
+        <form class=" col-md-4 offset-md-4 card card-body mt-4" #statusForm="ngForm" (ngSubmit)="statusView(statusForm)">
+          <div class="form-group">
+            <label for="application_id">Application Id</label>
+            <input type="text" class="form-control" name="application_id" #application_id="ngModel" ngModel required> 
+            <div *ngIf="application_id.touched && application_id.invalid" >
+              <p class="alert alert-danger" > *This field is required</p>
+        </div>
+
+
+          </div>
+          <button type="submit" class="btn btn-primary" [disabled]="statusForm.invalid">Submit</button>
+          <p class="text-danger" *ngIf="isApproved !== undefined">{{isApproved.status}}</p>
+        </form>
+        <button type="button" class="btn btn-dark" style="bottom:48px; right:0;display:block;position:fixed;" routerLink="/macoperation">Back</button>
+        </div>
