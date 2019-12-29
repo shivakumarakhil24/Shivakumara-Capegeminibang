@@ -1,0 +1,29 @@
+package com.capgemini.selenium.login;
+
+import org.junit.Assert;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Login {
+	static {
+		System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
+	}
+
+	@Test
+	public void login() throws InterruptedException {
+		ChromeDriver driver = new ChromeDriver();
+		driver.get("http://demo.actitime.com/login.do");
+		driver.findElement(By.id("username")).sendKeys("admin");
+		driver.findElement(By.name("pwd")).sendKeys("manager");
+		driver.findElement(By.xpath("//div[text()='Login ']")).click();
+
+		String expected1 = "actiTIME -  Enter Time-Track";
+		String actual = driver.getTitle();
+		Assert.assertEquals(actual, expected1);
+		Thread.sleep(2000);
+		driver.close();
+
+	}
+
+}
