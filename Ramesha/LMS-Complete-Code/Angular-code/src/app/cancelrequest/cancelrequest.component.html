@@ -1,0 +1,26 @@
+<div class="alert alert-success" *ngIf='msg'>{{msg}}</div>
+<div class="card card-body md-5 offset-2 col-md-6 mt-5">
+    <div>
+        <h3 style="color:black; text-align: center;">Cancel Request Here</h3>
+    </div>
+    <div>
+        <form action="" #cancelRequestForm='ngForm' (ngSubmit)='cancelRequest(cancelRequestForm)'>
+            <div class="form-group">
+                <input type="number" name="registrationId" id="registrationId" min="0" class="form-control mb-3 mt-4"
+                    placeholder="Enter Registration Id  to Cancel Request" #userId='ngModel' ngModel required>
+                <div *ngIf="userId.touched && userId.invalid">
+                    <p *ngIf="userId.errors.required" style="color: red;">*This field is required</p>
+                </div>
+            </div>
+            <div>
+                <button type="submit" class=" btn btn-outline-dark float-right"
+                    [disabled]='cancelRequestForm.invalid'>Cancel Request</button>
+            </div>
+            <div>
+                <button type="button" class="btn btn-dark float-left" routerLink="/student">
+                    Go Back
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

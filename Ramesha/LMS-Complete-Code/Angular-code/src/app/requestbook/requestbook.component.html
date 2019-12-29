@@ -1,0 +1,40 @@
+<div class="alert alert-success" *ngIf='msg'>{{msg}}</div>
+<div class="card card-body md-5 offset-2 col-md-6 mt-5">
+    <div>
+        <h3 style="color:black; text-align: center;">Request Book Here</h3>
+    </div>
+    <div>
+        <form action="" #requestBookForm='ngForm' (ngSubmit)='requestBook(requestBookForm)'>
+
+            <div class="form-group">
+                <input type="number" name="userId" id="userId" min="0" minlength="4" pattern="(?=.+\d).{4,}"
+                    class="form-control mb-3 mt-4" placeholder="Enter Student Id to Request" #userId='ngModel' ngModel
+                    required>
+                <div *ngIf="userId.touched && userId.invalid">
+                    <p *ngIf="userId.errors.required" style="color: red;">*This field is required</p>
+                    <p *ngIf="userId.errors.pattern" style="color: red;">*Student ID should have minimum 4 digits
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="number" name="bookId" id="bookId" min="0" minlength="4" pattern="(?=.+\d).{4,}"
+                    class="form-control mb-3 mt-4" placeholder="Enter Book Id to Request" #bookId='ngModel' ngModel
+                    required>
+                <div *ngIf="bookId.touched && bookId.invalid">
+                    <p *ngIf="bookId.errors.required" style="color: red;">*This field is required</p>
+                    <p *ngIf="bookId.errors.pattern" style="color: red;">*Book ID should be minimum 4 digits</p>
+
+                </div>
+            </div>
+            <div>
+                <button type="submit" class=" btn btn-outline-dark float-right"
+                    [disabled]='requestBookForm.invalid'>Request</button>
+            </div>
+            <div>
+                <button type="button" class="btn btn-dark float-left" routerLink="/student">
+                    Go Back
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

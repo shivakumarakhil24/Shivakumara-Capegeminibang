@@ -1,0 +1,137 @@
+/*
+SQLyog Trial v13.1.5  (64 bit)
+MySQL - 5.7.27-log : Database - ust_lms_db
+*********************************************************************
+*/
+
+/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`ust_lms_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `ust_lms_db`;
+
+/*Table structure for table `book` */
+
+DROP TABLE IF EXISTS `book`;
+
+CREATE TABLE `book` (
+  `bookId` int(11) NOT NULL,
+  `author` varchar(20) DEFAULT NULL,
+  `bookName` varchar(20) DEFAULT NULL,
+  `noOfCopies` int(11) DEFAULT NULL,
+  PRIMARY KEY (`bookId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `book` */
+
+insert  into `book`(`bookId`,`author`,`bookName`,`noOfCopies`) values 
+(2000,'Madhu','Java',10),
+(2001,'Giridhar','Springs',10),
+(2003,'Rahul','Hibernate',12),
+(2004,'Rohith','DataStructure',13),
+(2005,'Abhilash','Angular',12),
+(2006,'Chandan','JavaScript',14);
+
+/*Table structure for table `bookregistration` */
+
+DROP TABLE IF EXISTS `bookregistration`;
+
+CREATE TABLE `bookregistration` (
+  `registrationId` int(11) NOT NULL,
+  `bookId` int(11) DEFAULT NULL,
+  `registrationDate` datetime(6) DEFAULT NULL,
+  `studentId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`registrationId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `bookregistration` */
+
+insert  into `bookregistration`(`registrationId`,`bookId`,`registrationDate`,`studentId`) values 
+(1,2001,'2019-12-13 13:35:21.509000',1002),
+(16,2006,'2019-12-16 13:29:53.087000',1001),
+(17,2005,'2019-12-16 13:30:18.720000',1001);
+
+/*Table structure for table `hibernate_sequence` */
+
+DROP TABLE IF EXISTS `hibernate_sequence`;
+
+CREATE TABLE `hibernate_sequence` (
+  `next_val` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `hibernate_sequence` */
+
+insert  into `hibernate_sequence`(`next_val`) values 
+(23);
+
+/*Table structure for table `issuedbookdetails` */
+
+DROP TABLE IF EXISTS `issuedbookdetails`;
+
+CREATE TABLE `issuedbookdetails` (
+  `id` int(11) NOT NULL,
+  `issuedDate` date DEFAULT NULL,
+  `returnDate` date DEFAULT NULL,
+  `bookId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK4rurxsj9b5smbmytn4y072gn5` (`bookId`),
+  KEY `FK4glh8cdan08m4w4bjkguew6g6` (`userId`),
+  CONSTRAINT `FK4glh8cdan08m4w4bjkguew6g6` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`),
+  CONSTRAINT `FK4rurxsj9b5smbmytn4y072gn5` FOREIGN KEY (`bookId`) REFERENCES `book` (`bookId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `issuedbookdetails` */
+
+insert  into `issuedbookdetails`(`id`,`issuedDate`,`returnDate`,`bookId`,`userId`) values 
+(2,'2019-12-13','2019-12-23',2000,1002),
+(19,'2019-12-16','2019-12-26',2006,1001),
+(20,'2019-12-16','2019-12-26',2005,1001),
+(21,'2019-12-16','2019-12-26',2006,1001),
+(22,'2019-12-16','2019-12-26',2006,1001);
+
+/*Table structure for table `user` */
+
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE `user` (
+  `userId` int(11) NOT NULL,
+  `userEmail` varchar(255) DEFAULT NULL,
+  `userGender` varchar(10) DEFAULT NULL,
+  `userMobileNo` bigint(20) DEFAULT NULL,
+  `userName` varchar(20) DEFAULT NULL,
+  `userPassword` varchar(255) DEFAULT NULL,
+  `userType` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`userId`),
+  UNIQUE KEY `UK_3l8gb2p80bem5h71r6qt7wbem` (`userEmail`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `user` */
+
+insert  into `user`(`userId`,`userEmail`,`userGender`,`userMobileNo`,`userName`,`userPassword`,`userType`) values 
+(1000,'rameshagowda555@gmail.com','Male',7411024475,'RameshaGowda','Ramesha@123','Admin'),
+(1001,'shivu@gmail.com','Male',9876543212,'ShivKumar','Shivu@123','Student'),
+(1002,'meghana@gmail.com','FeMale',9876543215,'Meghana','Meghana@123','Student'),
+(1003,'priyanka123@gmail.com','FeMale',9876543252,'Priyanka','Priyanka@123','Librarian'),
+(1004,'ganga@gmail.com','Female',9876543214,'Ganga','Ganga@123','Student'),
+(1005,'sanjana@gmail.com','Female',9876543216,'Sanjana','Sanjana@123','Librarian'),
+(1006,'pooja@gmail.com','FeMale',9876543214,'Pooja','Pooja@123','Student'),
+(1008,'pratheek@gmail.com','Male',9876543215,'Pratheek','Pratheek@123','Librarian'),
+(1009,'sridhar@gmail.com','Male',9876543212,'Sridhar','Sridhar@123','Admin'),
+(1010,'sangeetha@gmail.com','FeMale',9876543214,'SangeethaGowda','Sangeetha@123','Admin'),
+(1013,'rashmi@gmail.com','FeMale',9876543214,'Rashmi','Rashmi@123','Admin'),
+(1014,'navya@gmail.com','FeMale',9876543214,'Navya','Navya@123','Admin'),
+(1015,'santhosh@gmail.com','Male',9876543214,'Santhosh','Santhosh@123','Admin'),
+(1016,'rakesh@gmail.com','Male',9876543215,'Rakesh','Rakesh@123','Student'),
+(1020,'qwerty@gmail.com','Male',9876543215,'Qwerty66','Qwerty@123','Admin');
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

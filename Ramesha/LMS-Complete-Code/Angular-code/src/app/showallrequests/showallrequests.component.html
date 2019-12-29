@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="alert alert-success" *ngIf='msg'>{{msg}}</div>
+    <div class="container mt-4">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-primary thead-dark">
+                <tr>
+                    <th>Index</th>
+                    <th>Registration Id</th>
+                    <th>Book Id</th>
+                    <th>Student Id</th>
+                    <th>Registration Date</th>
+                    <th>Accept</th>
+                    <th>Issue</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let res of requests; index as i'>
+                    <td>{{i+1}}</td>
+                    <td>{{res.registrationId}}</td>
+                    <td>{{res.bookId}}</td>
+                    <td>{{res.studentId}}</td>
+                    <td>{{res.registrationDate}}</td>
+                    <td><button type="submit" class="btn btn-success mt-2"
+                            (click)="acceptBookRequest(res.registrationId)">Accept</button></td>
+                    <td><button type="submit" class="btn btn-primary mt-2"
+                            (click)="issueBook(res)">Issue</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <button type="button" class="btn btn-dark float-right" routerLink="/librarian">
+                Go Back
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>

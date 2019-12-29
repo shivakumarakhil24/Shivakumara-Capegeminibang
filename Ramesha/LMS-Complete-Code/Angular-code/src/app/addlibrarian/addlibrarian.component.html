@@ -1,0 +1,73 @@
+<div class="alert alert-success" *ngIf='msg'>{{msg}}</div>
+<div class=" card card-body col-md-4 offset-4" style="align-content: center;">
+    <h2 class="text-center" style="color: blue;">Librarian Registration</h2>
+    <form #addLibrarianForm='ngForm' (ngSubmit)='addLibrarian(addLibrarianForm)'>
+        <div class="form-group">
+            <input type="number" name="userId" id="userId" #userId='ngModel' ngModel class="form-control mb-3" min="0"
+                pattern="(?=.+\d).{4,}" title="Librarian ID is number and it should have minimum of 4 digits"
+                placeholder="Enter Id" required>
+            <div *ngIf="userId.touched && userId.invalid">
+                <p *ngIf="userId.errors.required" style="color: red;">*This field is required</p>
+                <p *ngIf="userId.errors.pattern" style="color: red;">*Librarian ID should have minimum of 4 digits</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="text" name="userName" id="userName" #userName='ngModel' ngModel class="form-control mb-3"
+                minlength="3" maxlength="20" pattern="[a-zA-Z]{3,}"
+                title="Librarian Name must be at least 3 characters long." placeholder="Enter Name" required>
+            <div *ngIf="userName.touched && userName.invalid">
+                <p *ngIf="userName.errors.required" style="color: red;">*This field is required</p>
+                <p *ngIf="userName.errors.pattern && userName.errors.minlength" style="color: red;">*Librarian Name
+                    should have minimum 4 Characters</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="email" name="userEmail" id="userEmail" title="Email should contain atleast one . and @"
+                #userEmail='ngModel' ngModel class="form-control mb-3" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                placeholder="Enter Email" required>
+            <div *ngIf="userEmail.touched && userEmail.invalid">
+                <p *ngIf="userEmail.errors.required" style="color: red;">*This field is required</p>
+                <p *ngIf="userEmail.errors.pattern" style="color: red;">Email should have a characters followed by an @
+                    sign,followed by more characters, and then a ".". After the "." sign, add at least 2 letters from a
+                    to
+                    z:</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="password" name="userPassword" id="userPassword" class="form-control mb-3" title="Must contain at least one number and one
+                            uppercase and lowercase letter, and at least 6 or more characters"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!*?&])().{6,20}" #userPassword='ngModel' ngModel
+                placeholder="Enter Password" required>
+            <div *ngIf="userPassword.touched && userPassword.invalid">
+                <p *ngIf="userPassword.errors.required" style="color: red;">*This field is required</p>
+                <p *ngIf='userPassword.errors.pattern' style="color: red;">*Must contain at least one number and one
+                    uppercase and lowercase letter and one special character, and at least 6 or more characters</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="number" name="userMobileNo" id="userMobileNo" min="0" minlength="10" maxlength="10"
+                #userMobileNo='ngModel' pattern="^((\\?)|0)?[0-9]{10}$" title="Mobile No should be 10 digits" ngModel
+                class="form-control mb-3" placeholder="Enter PhoneNo" required>
+            <div *ngIf="userMobileNo.touched && userMobileNo.invalid">
+                <p *ngIf="userMobileNo.errors.required" style="color: red;">*This field is required</p>
+                <p *ngIf="userMobileNo.errors.pattern" style="color: red;">*Mobile No should be 10 digits</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <select name="userGender" id="userGender" #userGender='ngModel' ngModel class="form-control mb-3">
+                <option value="" selected disabled>Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="FeMale">FeMale</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary float-right" [disabled]='addLibrarianForm.invalid'>Add
+            Librarian</button>
+        <div>
+            <button type="button" class="btn btn-primary float-left" routerLink="/admin">
+                Go Back
+            </button>
+        </div>
+    </form>
+</div>

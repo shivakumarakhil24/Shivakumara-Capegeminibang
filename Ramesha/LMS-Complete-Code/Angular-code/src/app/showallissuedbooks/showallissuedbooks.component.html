@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-primary thead-dark">
+                <tr>
+                    <th>Index</th>
+                    <th>Id</th>
+                    <th>Issued Date</th>
+                    <th>Return Date</th>
+                    <th>Book Id</th>
+                    <th>User Id</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let res of issued; index as i'>
+                    <td>{{i+1}}</td>
+                    <td>{{res.id}}</td>
+                    <td>{{res.issuedDate.dayOfMonth + " " + res.issuedDate.month + " " + res.issuedDate.year}}</td>
+                    <td>{{res.returnDate.dayOfMonth + " " + res.returnDate.month +" " + res.returnDate.year}}</td>
+                    <td>{{res.book.bookId}}</td>
+                    <td>{{res.user.userId}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <button type="button" class="btn btn-dark float-right" routerLink="/librarian">
+                Go Back
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>

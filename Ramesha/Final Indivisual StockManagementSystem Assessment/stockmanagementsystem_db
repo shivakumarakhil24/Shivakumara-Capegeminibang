@@ -1,0 +1,88 @@
+/*
+SQLyog Trial v13.1.5  (64 bit)
+MySQL - 5.7.27-log : Database - ust_stockmanagement_db
+*********************************************************************
+*/
+
+/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`ust_stockmanagement_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `ust_stockmanagement_db`;
+
+/*Table structure for table `hibernate_sequence` */
+
+DROP TABLE IF EXISTS `hibernate_sequence`;
+
+CREATE TABLE `hibernate_sequence` (
+  `next_val` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `hibernate_sequence` */
+
+insert  into `hibernate_sequence`(`next_val`) values 
+(11),
+(11);
+
+/*Table structure for table `order_history_info` */
+
+DROP TABLE IF EXISTS `order_history_info`;
+
+CREATE TABLE `order_history_info` (
+  `id` int(11) NOT NULL,
+  `oid` int(11) NOT NULL,
+  KEY `FKqm8q3l4gsmjboks1u940ahmvh` (`oid`),
+  KEY `FKny7aj91ki8atn8g0jmb5t7p8x` (`id`),
+  CONSTRAINT `FKny7aj91ki8atn8g0jmb5t7p8x` FOREIGN KEY (`id`) REFERENCES `order_info` (`oid`),
+  CONSTRAINT `FKqm8q3l4gsmjboks1u940ahmvh` FOREIGN KEY (`oid`) REFERENCES `products_info` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `order_history_info` */
+
+/*Table structure for table `order_info` */
+
+DROP TABLE IF EXISTS `order_info`;
+
+CREATE TABLE `order_info` (
+  `oid` int(11) NOT NULL,
+  `total_price` double DEFAULT NULL,
+  `total_price_with_gst` double DEFAULT NULL,
+  PRIMARY KEY (`oid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `order_info` */
+
+insert  into `order_info`(`oid`,`total_price`,`total_price_with_gst`) values 
+(1,1000,1000);
+
+/*Table structure for table `products_info` */
+
+DROP TABLE IF EXISTS `products_info`;
+
+CREATE TABLE `products_info` (
+  `id` int(11) NOT NULL,
+  `category` varchar(255) DEFAULT NULL,
+  `company` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `products_info` */
+
+insert  into `products_info`(`id`,`category`,`company`,`name`,`price`,`quantity`) values 
+(1,'Laptop','Lenova','Lenovaideapad ',50000,10),
+(2,'Laptop','Lenova','Lenovaideapad ',50000,10),
+(3,'Laptop','Lenova','Lenovaideapad ',50000,10);
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

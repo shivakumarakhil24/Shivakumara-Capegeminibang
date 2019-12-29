@@ -1,0 +1,28 @@
+<div class="alert alert-success" *ngIf='Data'>{{Data.description}}</div>
+<h2 class="text-center mt-4 text-sucess" style="color:green;"><i>Welcome to Librarian</i></h2>
+<div class="row">
+      <div class="col-3 mt-4">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                  <button><a class="nav-link " style="color: blue;" aria-selected="true" routerLink="/addbook"><b>Add
+                                    Book</b></a></button>
+                  <button><a class="nav-link  " style="color: blue;" aria-selected="true"
+                              routerLink="/searchallbookbylibrarian"><b>Search All Books</b></a></button>
+                  <button><a class="nav-link  " style="color: blue;" aria-selected="true"
+                              routerLink="/showallrequests"><b>Show All Requests</b></a></button>
+                  <button> <a class="nav-link " style="color: blue;" aria-selected="true"
+                              routerLink="/showallissuedbooks"><b>Show All Issued Books</b></a></button>
+            </div>
+      </div>
+      <div class="col-9">
+            <div class="tab-content" id="v-pills-tabContent">
+                  <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                        aria-labelledby="v-pills-home-tab"></div>
+                  <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                  </div>
+                  <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
+                        aria-labelledby="v-pills-messages-tab"></div>
+                  <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
+                        aria-labelledby="v-pills-settings-tab"></div>
+            </div>
+      </div>
+</div>

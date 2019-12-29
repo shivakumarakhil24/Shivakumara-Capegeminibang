@@ -1,0 +1,85 @@
+/*
+SQLyog Trial v13.1.5  (64 bit)
+MySQL - 5.7.27-log : Database - ust_mailsimulation_db
+*********************************************************************
+*/
+
+/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`ust_mailsimulation_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `ust_mailsimulation_db`;
+
+/*Table structure for table `hibernate_sequence` */
+
+DROP TABLE IF EXISTS `hibernate_sequence`;
+
+CREATE TABLE `hibernate_sequence` (
+  `next_val` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `hibernate_sequence` */
+
+insert  into `hibernate_sequence`(`next_val`) values 
+(22),
+(22);
+
+/*Table structure for table `mail_info` */
+
+DROP TABLE IF EXISTS `mail_info`;
+
+CREATE TABLE `mail_info` (
+  `mid` int(11) NOT NULL,
+  `message` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `from_id` int(11) NOT NULL,
+  `to_id` int(11) NOT NULL,
+  PRIMARY KEY (`mid`),
+  KEY `FKp4hh9u7nwx4san4652uk3j7qf` (`from_id`),
+  KEY `FK4f79xnuvogu133076qc8dtqe8` (`to_id`),
+  CONSTRAINT `FK4f79xnuvogu133076qc8dtqe8` FOREIGN KEY (`to_id`) REFERENCES `user_info` (`id`),
+  CONSTRAINT `FKp4hh9u7nwx4san4652uk3j7qf` FOREIGN KEY (`from_id`) REFERENCES `user_info` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `mail_info` */
+
+insert  into `mail_info`(`mid`,`message`,`status`,`subject`,`from_id`,`to_id`) values 
+(15,'hellofromramesha','sent','hihello',1,2),
+(16,'werty','sent','qwert',1,2),
+(17,'qwert','sent','qwer',1,2),
+(18,'qwert','sent','qwert',1,2),
+(19,'asdfghjklwertyuicvbn','sent','qwertyuio',2,1),
+(21,'Hi This is Rameshagowda','sent','Hello',1,3);
+
+/*Table structure for table `user_info` */
+
+DROP TABLE IF EXISTS `user_info`;
+
+CREATE TABLE `user_info` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `user_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_gnu0k8vv6ptioedbxbfsnan9g` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `user_info` */
+
+insert  into `user_info`(`id`,`email`,`password`,`user_name`) values 
+(1,'rameshagowda555@gmail.com','Ramesha@123','Ramesha '),
+(2,'deepesh12@gmail.com','Ramesha@123','Deepesh'),
+(3,'praveen12@gmail.com','Praveen@123','Praveen'),
+(20,'santhosha12@gmail.com','Santhosh@123','Santhosh');
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

@@ -1,0 +1,214 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="alert alert-success" *ngIf='msg'>{{msg}}</div>
+    <h3 style="color:blue; text-align: center;">Search Product</h3>
+    <div class="card card-body md-5 offset-3 col-md-6 mt-4">
+        <form #searchForm='ngForm' (ngSubmit)='searchProduct(searchForm)'>
+            <div class="form-group">
+                <input type="text" name="name" id="name" class="form-control" placeholder="Enter Product name..."
+                    #name="ngModel" ngModel required maxlength="255" title="maximum length 255 characters"
+                    pattern="([A-Za-z\s]+){3,}" [(ngModel)]="selectedProduct.name">
+                <div *ngIf="name.touched && name.invalid">
+                    <p *ngIf="name.errors.required" class="alert alert-danger"> *product name is required maxlength is
+                        255</p>
+                </div>
+                <div *ngIf="name.touched && name.invalid">
+                    <p *ngIf="name.errors.pattern" class="alert alert-danger"> *enter only characters min 3 and max 255
+                    </p>
+                </div>
+            </div>
+            <div>
+                <button type="submit" class=" btn btn-outline-primary float-right"
+                    [disabled]='searchForm.invalid'>Search</button>
+            </div>
+        </form>
+    </div>
+    <div class="container mt-4">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-primary thead-dark">
+                <tr>
+                    <th>Index</th>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Product Category</th>
+                    <th>Product Company</th>
+                    <th>Product Quantity</th>
+                    <th>Product Price</th>
+                    <th>Update Product</th>
+                    <th>Delete Product</th>
+                    <th>Buy</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let res of products; index as i'>
+                    <td>{{i+1}}</td>
+                    <td>{{res.id}}</td>
+                    <td>{{res.name}}</td>
+                    <td>{{res.category}}</td>
+                    <td>{{res.company}}</td>
+                    <td>{{res.quantity}}</td>
+                    <td>{{res.price}}</td>
+                    <td><button type="button" class="btn btn-primary" data-toggle="modal"
+                            data-target="#exampleModalScrollable" (click)="editProduct(res)">
+                            Update
+                        </button>
+                        <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <div class=" card card-body col-md-8 offset-2 mt-2" style="align-content: center;">
+                                        <h2 class="text-center" style="color:blue;">Update Product Here</h2>
+                                        <form #updateProductForm='ngForm'
+                                            (ngSubmit)='update_product(updateProductForm)'>
+                                            <div class="form-group">
+                                                <input type="number" name="id" id="id" class="form-control"
+                                                    placeholder="Enter Product id..." #id="ngModel" ngModel required
+                                                    pattern="^[1-9][0-9]?$|^100$" title="please enter between 1-100"
+                                                    [(ngModel)]="selectedProduct.id">
+                                                <div *ngIf="id.touched && id.invalid">
+                                                    <p *ngIf="id.errors.required" class="alert alert-danger"> *Product
+                                                        id required</p>
+                                                </div>
+                                                <div *ngIf="id.touched &&id.invalid">
+                                                    <p *ngIf="id.errors.pattern" class="alert alert-danger"> *please
+                                                        enter between 1-100</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="text" name="name" id="name" class="form-control"
+                                                    placeholder="Enter Product name..." #name="ngModel" ngModel required
+                                                    maxlength="255" title="maximum length 255 characters"
+                                                    pattern="([A-Za-z\s]+){3,}" [(ngModel)]="selectedProduct.name">
+                                                <div *ngIf="name.touched && name.invalid">
+                                                    <p *ngIf="name.errors.required" class="alert alert-danger"> *product
+                                                        name is required maxlength is 255</p>
+                                                </div>
+                                                <div *ngIf="name.touched && name.invalid">
+                                                    <p *ngIf="name.errors.pattern" class="alert alert-danger"> *enter
+                                                        only characters min 3 and max 255</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="text" name="category" id="category" class="form-control"
+                                                    placeholder="Enter product category..." #category="ngModel" ngModel
+                                                    required maxlength="255" title="maximum length 255 characters"
+                                                    pattern="([A-Za-z\s]+){3,}" [(ngModel)]="selectedProduct.category">
+                                                <div *ngIf="category.touched && category.invalid">
+                                                    <p *ngIf="category.errors.required" class="alert alert-danger">
+                                                        *Product category is required maxlength is
+                                                        255</p>
+                                                </div>
+                                                <div *ngIf="category.touched && category.invalid">
+                                                    <p *ngIf="category.errors.pattern" class="alert alert-danger">
+                                                        *enter only characters min 3 and max 25</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" name="company" id="company" class="form-control"
+                                                    placeholder="Enter company.." #company="ngModel" ngModel required
+                                                    maxlength="255" title="maximum length 255 characters"
+                                                    pattern="([A-Za-z\s]+){3,}" [(ngModel)]="selectedProduct.company">
+                                                <div *ngIf="company.touched && company.invalid">
+                                                    <p *ngIf="company.errors.required" class="alert alert-danger">
+                                                        *Product company is required maxlength is 255
+                                                    </p>
+                                                </div>
+                                                <div *ngIf="company.touched && company.invalid">
+                                                    <p *ngIf="company.errors.pattern" class="alert alert-danger"> *enter
+                                                        only characters min 3 and max 255</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="text" name="quantity" id="quantity" class="form-control"
+                                                    placeholder="Enter Product quantity..." #quantity="ngModel" ngModel
+                                                    required pattern="^[1-9][0-9]?$|^100$"
+                                                    title="please enter between 1-100"
+                                                    [(ngModel)]="selectedProduct.quantity">
+                                                <div *ngIf="quantity.touched && quantity.invalid">
+                                                    <p *ngIf="quantity.errors.required" class="alert alert-danger">
+                                                        *Product quantity required</p>
+                                                </div>
+                                                <div *ngIf="quantity.touched && quantity.invalid">
+                                                    <p *ngIf="quantity.errors.pattern" class="alert alert-danger">
+                                                        *please enter between 1-100</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" name="price" id="price" class="form-control"
+                                                    placeholder="Enter Product price..." #price="ngModel" ngModel
+                                                    required pattern="" title="please enter double value of price"
+                                                    [(ngModel)]="selectedProduct.price">
+                                                <div *ngIf="price.touched && price.invalid">
+                                                    <p *ngIf="price.errors.required" class="alert alert-danger">
+                                                        *Product price required</p>
+                                                </div>
+                                                <div *ngIf="price.touched && price.invalid">
+                                                    <p *ngIf="price.errors.pattern" class="alert alert-danger"> *please
+                                                        enter double value of price </p>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <button type="submit" class="btn btn-info float-right"
+                                                    [disabled]='updateProductForm.invalid'>Update</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><button type="submit" class="btn btn-danger mt-2" (click)="delete(res)" data-toggle="modal"
+                            data-target="#requestProduct">Remove</button>
+                    </td>
+                    <td><button class="btn btn-success" (click)="addCart(res)">Buy</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <button class="btn btn-success float-right" (click)="move()">Add Cart</button>
+        </div>
+        <div>
+            <button type="button" class="btn btn-dark float-left" routerLink="/">
+                Go Back
+            </button>
+        </div>
+    </div>
+    <div id="requestProduct" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE5CD;</i>
+                    </div>
+                    <h4 class="modal-title">Are you sure?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body" *ngIf="select">
+                    <p>Do you really want to delete these User? This process cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"
+                        (click)="remove(selectProduct)">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

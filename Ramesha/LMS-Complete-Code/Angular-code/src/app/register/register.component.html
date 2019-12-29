@@ -1,0 +1,130 @@
+<div class="alert alert-success" *ngIf='msg'>{{msg}}</div>
+
+<section class="login-block">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 mt-5" style="margin-top:500%">
+        <h2 class="text-center" style="color: blue;">Admin Registration</h2>
+        <form #registerForm='ngForm' (ngSubmit)='register(registerForm)'>
+          <div class="form-group">
+            <input type="number" name="userId" id="userId" #userId='ngModel' ngModel class="form-control mb-3" min="0"
+              pattern="(?=.+\d).{4,}" title="UserID is number and it should have minimum of 4 digits"
+              placeholder="Enter Id" required>
+            <div *ngIf="userId.touched && userId.invalid">
+              <p *ngIf="userId.errors.required" style="color: red;">*This field is required</p>
+              <p *ngIf="userId.errors.pattern" style="color: red;">*UserID should have minimum of 4 digits</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="text" name="userName" id="userName" #userName='ngModel' ngModel class="form-control mb-3"
+              minlength="3" maxlength="20" pattern="[a-zA-Z]{3,}"
+              title="UserName must be at least 3 characters long." placeholder="Enter Name" required>
+            <div *ngIf="userName.touched && userName.invalid">
+              <p *ngIf="userName.errors.required" style="color: red;">*This field is required</p>
+              <p *ngIf="userName.errors.pattern" style="color: red;">*UserName should be characters of 3 letters</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="email" name="userEmail" id="userEmail" title="Email should contain atleast one . and @"
+              #userEmail='ngModel' ngModel class="form-control mb-3" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+              placeholder="Enter Email" required>
+            <div *ngIf="userEmail.touched && userEmail.invalid">
+              <p *ngIf="userEmail.errors.required" style="color: red;">*This field is required</p>
+              <p *ngIf="userEmail.errors.pattern" style="color: red;">Email should have a characters followed by an @
+                sign,followed by more characters, and then a ".". After the "." sign, add at least 2 letters from a to
+                z:</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="password" name="userPassword" id="userPassword" class="form-control mb-3" title="Must contain at least one number and one
+            uppercase and lowercase letter and one special character, and at least 6 or more characters"
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!*?&])().{6,20}" #userPassword='ngModel' ngModel
+              placeholder="Enter Password" required>
+            <div *ngIf="userPassword.touched && userPassword.invalid">
+              <p *ngIf="userPassword.errors.required" style="color: red;">*This field is required</p>
+              <p *ngIf='userPassword.errors.pattern' style="color: red;">*Must contain at least one number and one
+                uppercase and lowercase letter and one special character, and at least 6 or more characters</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="number" name="userMobileNo" id="userMobileNo" min="0" minlength="10" maxlength="10"
+              #userMobileNo='ngModel' pattern="^((\\?)|0)?[0-9]{10}$" title="Mobile No should be 10 digits" ngModel
+              class="form-control mb-3" placeholder="Enter PhoneNo" required>
+            <div *ngIf="userMobileNo.touched && userMobileNo.invalid">
+              <p *ngIf="userMobileNo.errors.required" style="color: red;">*This field is required</p>
+              <p *ngIf="userMobileNo.errors.pattern" style="color: red;">*Mobile No should be 10 digits</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <select name="userGender" id="userGender" #userGender='ngModel' ngModel class="form-control mb-3">
+              <option value="" selected disabled>Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="FeMale">FeMale</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary float-right" [disabled]='registerForm.invalid'>Register</button>
+          <div>
+            <button type="button" class="btn btn-primary float-left" routerLink="/login">
+              Go Back
+            </button>
+          </div>
+        </form>
+
+      </div>
+      <div class="col-md-8 mt-5 banner-sec">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+              <img class="d-block img-fluid"
+                src="https://ebookfriendly.com/wp-content/uploads/2013/04/Ruzomberok-University-Library-inside-768x512.jpg"
+                alt="First slide">
+              <div class="carousel-caption d-none d-md-block">
+                <div class="banner-text">
+                  <h2>Library Management System</h2>
+                  <p> which is very easy to use and fulfills all the requirement of a librarian.
+                    There are many features which helps librarian to keep records of available books as well as issued
+                    books.</p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img class="d-block img-fluid"
+                src="https://ebookfriendly.com/wp-content/uploads/2013/04/Constitucion-Public-Library-inside-768x502.jpg"
+                alt="First slide">
+              <div class="carousel-caption d-none d-md-block">
+                <div class="banner-text">
+                  <h2>Library Management System</h2>
+                  <p> which is very easy to use and fulfills all the requirement of a librarian.
+                    There are many features which helps librarian to keep records of available books as well as issued
+                    books.</p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img class="d-block img-fluid"
+                src="https://ebookfriendly.com/wp-content/uploads/2015/04/Stuttgart-City-Library-inside.jpg"
+                alt="First slide">
+              <div class="carousel-caption d-none d-md-block">
+                <div class="banner-text">
+                  <h2>Library Management System</h2>
+                  <p> which is very easy to use and fulfills all the requirement of a librarian.
+                    There are many features which helps librarian to keep records of available books as well as issued
+                    books.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

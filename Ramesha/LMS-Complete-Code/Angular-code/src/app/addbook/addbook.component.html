@@ -1,0 +1,47 @@
+<div class="alert alert-success" *ngIf='msg'>{{msg}}</div>
+<form class="card card-body col-md-4 offset-4  mt-5" #addBookForm='ngForm' (ngSubmit)='addBook(addBookForm)'>
+    <h2 class="text-center " style="color: black;">Add Books Here</h2>
+    <div class="form-group">
+        <input type="number" name="bookId" id="bookId" #bookId='ngModel' ngModel class="form-control mb-3" min="0"
+            pattern="(?=.+\d).{4,}" title="bookId is number and it should have minimum of 4 digits"
+            placeholder="Enter Book Id" required>
+        <div *ngIf="bookId.touched && bookId.invalid">
+            <p *ngIf="bookId.errors.required" style="color: red;">*This field is required</p>
+            <p *ngIf="bookId.errors.pattern" style="color: red;">*Book Id should have minimum of 4 digits</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="text" name="bookName" id="bookName" #bookName='ngModel' ngModel class="form-control mb-3"
+            minlength="3" maxlength="20" pattern="[a-zA-Z]{3,}"
+            title="BookName start with upperCase and it should have minimum 3 Characters" placeholder="Enter Book Name" required>
+        <div *ngIf="bookName.touched && bookName.invalid">
+            <p *ngIf="bookName.errors.required" style="color: red;">*This field is required</p>
+            <p *ngIf="bookName.errors.pattern && bookName.errors.minlength" style="color: red;">*BookName start with
+                upperCase and it should have minimum 3 Characters</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="text" name="author" id="author" #author='ngModel' ngModel class="form-control mb-3" minlength="3"
+            pattern="[a-zA-Z]{3,}" title="author must be at least 3 characters long."
+            placeholder="Enter Author Name" required>
+        <div *ngIf="author.touched && author.invalid">
+            <p *ngIf="author.errors.required" style="color: red;">*This field is required</p>
+            <p *ngIf="author.errors.pattern && author.errors.minlength" style="color: red;">*Author Name should have
+                minimum 3 Characters</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="number" name="noOfCopies" min="0" id="noOfCopies" #noOfCopies='ngModel' ngModel
+            class="form-control mb-3" placeholder="Enter NoOfCopies">
+        <div *ngIf="noOfCopies.touched && noOfCopies.invalid">
+            <p *ngIf="noOfCopies.errors.required" class="alert alert-danger">*This field is required</p>
+        </div>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-dark float-right" [disabled]="addBookForm.invalid">Add Book</button>
+        <button type="button" class="btn btn-dark float-left" routerLink="/librarian">
+            Go Back
+        </button>
+    </div>
+</form>

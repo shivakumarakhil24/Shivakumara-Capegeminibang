@@ -1,0 +1,209 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="alert alert-success" *ngIf='msg'>{{msg}}</div>
+    <h3 style="color:blue; text-align: center;">Search User</h3>
+    <div class="card card-body md-5 offset-3 col-md-6 mt-4">
+        <form #searchForm='ngForm' (ngSubmit)='searchUser(searchForm)'>
+            <div class="form-group">
+                <input type="number" name="userId" id="userId" #userId='ngModel' ngModel class="form-control mb-3"
+                    min="0" pattern="(?=.+\d).{4,}" title="userId is number and it should have minimum of 4 digits"
+                    placeholder="Enter User Id" required>
+                <div *ngIf="userId.touched && userId.invalid">
+                    <p *ngIf="userId.errors.required" style="color: red;">*This field is required</p>
+                    <p *ngIf="userId.errors.pattern" style="color: red;">*userId should have minimum of 4 digits </p>
+                </div>
+            </div>
+            <div>
+                <button type="submit" class=" btn btn-outline-primary float-right"
+                    [disabled]='searchForm.invalid'>Search</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="container mt-4">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-primary thead-dark">
+                <tr>
+                    <th>Index</th>
+                    <th>User ID</th>
+                    <th>User Name</th>
+                    <th>User Type</th>
+                    <th>User Email</th>
+                    <th>User Password</th>
+                    <th>User Gender</th>
+                    <th>User MobileNo</th>
+                    <th>Update</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let res of users; index as i'>
+                    <td>{{i+1}}</td>
+                    <td>{{res.userId}}</td>
+                    <td>{{res.userName}}</td>
+                    <td>{{res.userType}}</td>
+                    <td>{{res.userEmail}}</td>
+                    <td>{{res.userPassword}}</td>
+                    <td>{{res.userGender}}</td>
+                    <td>{{res.userMobileNo}}</td>
+                    <td><button type="button" class="btn btn-primary" data-toggle="modal"
+                            data-target="#exampleModalScrollable" (click)="editUser(res)">
+                            Update
+                        </button>
+                        <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <div class=" card card-body col-md-8 offset-2 mt-2" style="align-content: center;">
+                                        <h2 class="text-center" style="color:blue;">Update User</h2>
+                                        <form #updateUserForm='ngForm' (ngSubmit)='update_user(updateUserForm)'>
+                                            <div class="form-group">
+                                                <input type="number" name="userId" id="userId" #userId='ngModel' ngModel
+                                                    class="form-control mb-3" min="0" pattern="(?=.+\d).{4,}"
+                                                    title="StudentID is number and it should have minimum of 4 digits"
+                                                    placeholder="Enter Id" required [(ngModel)]="selectedUser.userId">
+                                                <div *ngIf="userId.touched && userId.invalid">
+                                                    <p *ngIf="userId.errors.required" style="color: red;">*This
+                                                        field is required</p>
+                                                    <p *ngIf="userId.errors.pattern" style="color: red;">*StudentID
+                                                        should have minimum of 4 digits</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" name="userName" id="userName" #userName='ngModel'
+                                                    ngModel class="form-control mb-3" minlength="3" maxlength="20"
+                                                    pattern="[a-zA-Z]{3,}" [(ngModel)]="selectedUser.userName"
+                                                    title="StudentName must be at least 3 characters long."
+                                                    placeholder="Enter Student Name" required>
+                                                <div *ngIf="userName.touched && userName.invalid">
+                                                    <p *ngIf="userName.errors.required" style="color: red;">*This
+                                                        field is required</p>
+                                                    <p *ngIf="userName.errors.pattern && userName.errors.minlength"
+                                                        style="color: red;">
+                                                        *StudentName should have minimum 3 Characters</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" name="userType" id="userType" #userType='ngModel'
+                                                    ngModel class="form-control mb-3" minlength="3" maxlength="20"
+                                                    pattern="[a-zA-Z]{3,}" [(ngModel)]="selectedUser.userType"
+                                                    title="userType must be at least 3 characters long."
+                                                    placeholder="Enter userType" required>
+                                                <div *ngIf="userType.touched && userType.invalid">
+                                                    <p *ngIf="userType.errors.required" style="color: red;">*This
+                                                        field is required</p>
+                                                    <p *ngIf="userType.errors.pattern && userType.errors.minlength"
+                                                        style="color: red;">
+                                                        *userType should have minimum 3 Characters</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="email" name="userEmail" id="userEmail"
+                                                    title="Email should contain atleast one . and @"
+                                                    #userEmail='ngModel' ngModel class="form-control mb-3"
+                                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                                    placeholder="Enter Email" required
+                                                    [(ngModel)]="selectedUser.userEmail">
+                                                <div *ngIf="userEmail.touched && userEmail.invalid">
+                                                    <p *ngIf="userEmail.errors.required" style="color: red;">
+                                                        *This
+                                                        field is required</p>
+                                                    <p *ngIf="userEmail.errors.pattern" style="color: red;">
+                                                        Email
+                                                        should have a characters followed by an @
+                                                        sign,followed by more characters, and then a ".". After
+                                                        the "." sign, add at least 2 letters from a to z:</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" name="userPassword" id="userPassword"
+                                                    class="form-control mb-3" title="Must contain at least one number and one
+                                                    uppercase and lowercase letter, and at least 6 or more characters"
+                                                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!*?&])().{6,20}"
+                                                    #userPassword='ngModel' ngModel placeholder="Enter Password"
+                                                    required [(ngModel)]="selectedUser.userPassword">
+                                                <div *ngIf="userPassword.touched && userPassword.invalid">
+                                                    <p *ngIf="userPassword.errors.required" style="color: red;">
+                                                        *This field is required</p>
+                                                    <p *ngIf='userPassword.errors.pattern' style="color: red;">
+                                                        *Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more
+                                                        characters</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="number" name="userMobileNo" id="userMobileNo" min="0"
+                                                    minlength="10" maxlength="10" #userMobileNo='ngModel'
+                                                    pattern="^((\\?)|0)?[0-9]{10}$"
+                                                    title="Mobile No should be 10 digits" ngModel
+                                                    class="form-control mb-3" placeholder="Enter PhoneNo" required
+                                                    [(ngModel)]="selectedUser.userMobileNo">
+                                                <div *ngIf="userMobileNo.touched && userMobileNo.invalid">
+                                                    <p *ngIf="userMobileNo.errors.required" style="color: red;">
+                                                        *This field is required</p>
+                                                    <p *ngIf="userMobileNo.errors.pattern" style="color: red;">
+                                                        *Mobile No should be 10 digits</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <select name="userGender" id="userGender" #userGender='ngModel' ngModel
+                                                    class="form-control mb-3" [(ngModel)]="selectedUser.userGender">
+                                                    <option value="" selected disabled>Select Gender</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="FeMale">FeMale</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
+                                            </div>
+                                            <button type="submit" class="btn btn-info float-right"
+                                                [disabled]='updateUserForm.invalid'>Update</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><button type="submit" class="btn btn-danger mt-2" (click)="delete(res)" data-toggle="modal" data-target="#requestUser">Remove</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <button type="button" class="btn btn-dark float-right" routerLink="/admin">
+                Go Back
+            </button>
+        </div>
+    </div>
+    <div id="requestUser" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE5CD;</i>
+                    </div>				
+                    <h4 class="modal-title">Are you sure?</h4>	
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body" *ngIf="select">
+                    <p>Do you really want to delete these User? This process cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="remove(selectUser)">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="card card-body md-5 offset-3 col-md-6 mt-4">
+        <div>
+            <h3 style="color:black; text-align: center;">Search Book ByName</h3>
+        </div>
+        <div>
+            <form #searchbookForm='ngForm' (ngSubmit)='searchBook(searchbookForm)'>
+                <div class="form-group">
+                    <input type="text" name="bookName" id="bookName" #bookName='ngModel' ngModel
+                        class="form-control mb-3" minlength="3" maxlength="20" pattern="[a-zA-Z]{3,}"
+                        title="bookName must be at least 3 characters long." placeholder="Enter Book Name" required>
+                    <div *ngIf="bookName.touched && bookName.invalid">
+                        <p *ngIf="bookName.errors.required" style="color: red;">*This field is required</p>
+                        <p *ngIf="bookName.errors.pattern && bookName.errors.minlength" style="color: red;">*bookName
+                            should have minimum 3 Characters</p>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class=" btn btn-outline-dark float-right"
+                        [disabled]='searchbookForm.invalid'>Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-primary thead-dark">
+                <tr>
+                    <th>Index</th>
+                    <th>Book ID</th>
+                    <th>Book Name</th>
+                    <th>Author</th>
+                    <th>No Of Copies</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let res of books; index as i'>
+                    <td>{{i+1}}</td>
+                    <td>{{res.bookId}}</td>
+                    <td>{{res.bookName}}</td>
+                    <td>{{res.author}}</td>
+                    <td>{{res.noOfCopies}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <button type="button" class="btn btn-dark float-right" routerLink="/student">
+                Go Back
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>
